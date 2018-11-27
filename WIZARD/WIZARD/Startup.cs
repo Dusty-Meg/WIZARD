@@ -14,12 +14,6 @@ using Microsoft.Extensions.Options;
 
 namespace WIZARD
 {
-    public class EsiSecrets
-    {
-        public string EsiClientId { get; set; }
-        public string EsiClientSecret { get; set; }
-    }
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
