@@ -1,4 +1,7 @@
-﻿using AspNet.Security.OAuth;
+﻿using System.Data.SqlClient;
+using AspNet.Security.OAuth;
+using DAL;
+using Logic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +33,13 @@ namespace WIZARD
                 options.ClientId = esiSecrets.EsiClientId;
                 options.ClientSecret = esiSecrets.EsiClientSecret;
             });
+
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(Configuration["Connection:ConnectionString"]);
+
+            services.AddSingleton(_ => builder);
+
+            services.AddScoped<IApiKeyManager, ApiKeyManager>();
+            services.AddScoped<IApiKeyProvider, ApiKeyProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
